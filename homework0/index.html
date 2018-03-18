@@ -1,0 +1,145 @@
+<html>
+  <head>
+    <title>JavaScript test</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <script>
+
+    /* Base tasks */
+    console.log("\n******Base tasks******\n\n");
+      function plus(a, b) {
+        return a + b;
+      }
+
+      function multiply(a, b) {
+        var c = a;
+        for (var i = 1; i < b; i++) {
+          c = plus(c, a);
+        }
+        return c;
+      }
+
+      function mergeArrays(a, b) {
+        return [...a, ...b];
+      }
+
+      function filterFemales(peopleList) {
+        var femaleList = [];
+        for (var i = 0; i < peopleList.length; i++) {
+          if (peopleList[i].sex == "F") {
+            femaleList.push(peopleList[i]);
+          }
+        }
+        return femaleList;
+      }
+
+      function getQuadrant(x, y) {
+        if (x > 0 && y > 0) return 1;
+        if (x < 0 && y > 0) return 2;
+        if (x < 0 && y < 0) return 3;
+        if (x > 0 && y < 0) return 4;
+        return "On axis";
+      }
+
+      var people = [
+        { alias: "Дениска", sex: "M", favouriteMovie: "Don't Be A Menace To South Central While Drinking Juice In Your Hood (1996)" },
+        { alias: "Мария", sex: "F", favouriteMovie: "Stars On Earth (2007)" },
+        { alias: "Вован", sex: "M", favouriteMovie: "Police Academy (1984)" },
+        { alias: "Кирилл Степанович", sex: "M", favouriteMovie: "Charlie and the Chocolate Factory (2005)" },
+        { alias: "Эммелина", sex: "F", favouriteMovie: "Resident Evil (2002)" },
+        { alias: "Bb_reS1sT", sex: "F", favouriteMovie: "1984 (1984)" },
+        { alias: "Горшок", sex: "M", favouriteMovie: "One Flew Over the Cuckoo's Nest (1975)" },
+        ];
+
+      console.log(plus(1, 2));
+      console.log(multiply(3, 10));
+      console.log(mergeArrays([1, 2, 3], [4, 5]));
+      console.log(filterFemales(people));
+      console.log(getQuadrant(1, 2));
+      console.log(getQuadrant(-1, 2));
+      console.log(getQuadrant(-2, -3));
+      console.log(getQuadrant(4, -7));
+      console.log(getQuadrant(0, 0));
+
+    /* Main tasks */
+    console.log("\n******Main tasks******\n\n");
+      function _plus() {
+        var sum = 0;
+        for (var i = 0; i < arguments.length; i++) {
+          sum += arguments[i];
+        }
+        return sum;
+      }
+
+      function multiplyAll() {
+        var pro = 1;
+        for (var i = 0; i < arguments.length; i++) {
+          pro *= arguments[i];
+        }
+        return pro;
+      }
+
+      function _multiplyAll(...multipliers) {
+        return multipliers.reduce((previous, current) => previous * current);
+      }
+
+      function objectToQueryString(obj) {
+        var query = "";
+        for (prop in obj) {
+          query += prop + "=" + obj[prop] + "&";
+        }
+        return encodeURI(query).slice(0, -1);
+      }
+
+      function _filterFemales(peopleList) {
+        return peopleList.filter(person => person.sex == "F");
+      }
+
+      function getIn(obj, path, defaultValue) {
+        if (obj.hasOwnProperty(path[0])) {
+          innerPath = path[0];
+          innerObj = obj[innerPath];
+          for (var i = 1; i < path.length; i++) {
+            if (!(innerObj.hasOwnProperty(path[i]))) return defaultValue;
+            innerPath = path[i];
+            innerObj = innerObj[innerPath];
+          }
+          return innerObj;
+        }
+        return defaultValue;
+      }
+
+      const student = {
+        alias: "Васян",
+        address: {
+          preciseLocation: "проживает по адресу Нежинская улица, дом 7, корпус 1",
+        },
+        education: {
+          school: "учился в МБОУ СОШ №101",
+          university: "продолжает обучение в ФГБОУ ВО РЭУ им. Г. В. Плеханова",
+        },
+        contacts: {
+          telephoneNumber: "имеет номер телефона 89096721541",
+          vk: "зарегистрирован в ВК по адресу vk.com/hardbass_228",
+        },
+      }
+
+      console.log(_plus(2, 3, 5, 7, 3));
+      console.log("Method 1: " + multiplyAll(3, 31, 16));
+      console.log("Method 2: " + _multiplyAll(3, 31, 16));
+      console.log(objectToQueryString({ name1: 'John', name2: 'Фёдор' }));
+      console.log(_filterFemales(people));
+      console.log(student.alias + " " + getIn(student, ['address', 'preciseLocation'], "не имеет постоянного места жительства"));
+      console.log(student.alias + " " + getIn(student, ['education', 'school'], "не учился в школе"));
+      console.log(student.alias + " " + getIn(student, ['education', 'university'], "решил забить на дальнейшее образование"));
+      console.log(student.alias + " " + getIn(student, ['career', 'jobExperience'], "никогда нигде не работал"));
+      console.log(student.alias + " " + getIn(student, ['contacts', 'telephoneNumber'], "выкинул SIM-карту в окно после пьянки"));
+      console.log(student.alias + " " + getIn(student, ['contacts', 'vk'], "с презрением относится к социальной сети ВКонтакте"));
+      console.log(student.alias + " " + getIn(student, ['contacts', 'telegram'], "- дурачок, не зарегистрированный в Telegram"));
+    </script>
+    <p>
+      Code has finished running. Check <b>F12 -> Console</b> for further details.
+    </p>
+  </body>
+</html>
